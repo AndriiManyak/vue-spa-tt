@@ -27,6 +27,14 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+.contacts {
+  max-width: 1024px;
+  margin: auto;
 
+  &__table {
+    width: 100%;
+    margin: 20px 0;
+  }
+}
 </style>

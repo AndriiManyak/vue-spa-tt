@@ -37,6 +37,40 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
+.table {
+  border-collapse: collapse;
+  text-align: start;
+  &__head {
+    background-color: #F8F9FA;
+    border-bottom: 2px solid black;
 
+    th {
+      text-align: start;
+      padding: 20px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #DFE0E1;
+      }
+
+      &:last-child {
+        background-color: #F8F9FA;
+        cursor: default;
+      }
+    }
+  }
+
+  &__body {
+    tr {
+      &:hover {
+        background-color: #F8F9FA;
+      }
+    }
+
+    td {
+      padding: 15px 10px;
+    }
+  }
+}
 </style>
