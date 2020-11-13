@@ -1,15 +1,41 @@
 <template>
   <div class="contactcard">
-    ContactDetails
+    <h1>{{ contactId }}</h1>
+    <p>{{ contact.name}}</p>
+    <p>{{ contact.username}}</p>
+    <p>{{ contact.email}}</p>
+    <p>{{ contact.phone}}</p>
+    <p>{{ contact.website}}</p>
+
+    <div class="company">
+      <h2>Company</h2>
+      <p>{{ contact.company.name}}</p>
+      <p>{{ contact.company.catchPhrase}}</p>
+      <p>{{ contact.company.bs}}</p>
+    </div>
+    <router-link to="/">Back</router-link>
   </div>
 </template>
 
 <script>
-export default {
+import store from '@/store';
 
+export default {
+  data() {
+    return {
+      contactId: this.$route.params.id,
+    };
+  },
+  computed: {
+    contact() {
+      return store.contacts.find((contact) => (
+        contact.id === this.contactId
+      ));
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
 
 </style>

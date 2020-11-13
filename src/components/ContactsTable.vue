@@ -20,8 +20,19 @@
         <td>{{ contact.username }}</td>
         <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
         <td>
-          <router-link :to="{ name: 'contact', params: {id: contact.id} }">Details</router-link>
-          <button type="button" @click="deleteContact(contact.id)">X</button>
+          <router-link
+            class="table__details"
+            :to="{name: 'contact', params: {id: contact.id}}"
+          >
+            Details
+          </router-link>
+
+          <button
+            @click="deleteContact(contact.id)"
+            class="table__delete-button"
+            type="button">
+            Delete
+          </button>
           </td>
       </tr>
     </tbody>
@@ -29,7 +40,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'ContactsTable',
   props: {
@@ -67,6 +77,11 @@ export default {
       &:hover {
         background-color: #DFE0E1;
       }
+
+      &:last-child {
+        background-color: #F8F9FA;
+        cursor: default;
+      }
     }
   }
 
@@ -79,6 +94,44 @@ export default {
 
     td {
       padding: 15px 10px;
+    }
+  }
+
+  &__details {
+    margin-right: 20px;
+    padding: 15px 25px;
+
+    color: white;
+    background-color: #237ED7;
+    font-size: 16px;
+
+    transition: color 0.5s, background-color 0.5s;
+
+    &:hover {
+      color: #237ED7;
+      background-color: white;
+    }
+  }
+
+  &__delete-button {
+    border:none;
+
+    padding: 15px 25px;
+    color: white;
+    background-color: #F77066;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+
+    transition: color 0.5s, background-color 0.5s;
+
+    &:hover {
+      color: #F77066;
+      background-color: white;
+    }
+
+    &:focus {
+      transform: scale(1.05);
     }
   }
 }
