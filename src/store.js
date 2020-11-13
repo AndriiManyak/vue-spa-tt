@@ -1,4 +1,4 @@
-// add some initial comments from https://jsonplaceholder.typicode.com/users
+// add some initial contacts from https://jsonplaceholder.typicode.com/users
 const contacts = [
   {
     id: 1,
