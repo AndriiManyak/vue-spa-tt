@@ -20,8 +20,18 @@
         <td>{{ contact.username }}</td>
         <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
         <td>
-          <router-link :to="{name: 'contact', params: {id: contact.id}}">Details</router-link>
-          <button type="button">X</button>
+          <router-link
+            class="table__details"
+            :to="{name: 'contact', params: {id: contact.id}}"
+          >
+            Details
+          </router-link>
+          <button
+            class="table__delete-button"
+            type="button"
+          >
+            Delete
+          </button>
           </td>
       </tr>
     </tbody>
@@ -70,6 +80,30 @@ export default {
 
     td {
       padding: 15px 10px;
+    }
+  }
+
+  &__details {
+    margin-right: 20px;
+    padding: 10px 20px;
+
+    color: white;
+    background-color: #1F7CD8;
+    font-size: 15px;
+  }
+
+  &__delete-button {
+    padding: 10px 20px;
+
+    border: none;
+    color: white;
+    background-color: #F44336;
+    font-size: 15px;
+    outline:none;
+    cursor: pointer;
+
+    &:focus {
+      transform: scale(1.05);
     }
   }
 }

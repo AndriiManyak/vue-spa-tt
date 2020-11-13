@@ -16,6 +16,12 @@ export default {
 };
 </script>
 <style lang="scss">
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
 }
@@ -25,7 +31,6 @@ body {
 }
 
 a {
-  color: #607D8B;
   text-decoration: none;
 }
 
