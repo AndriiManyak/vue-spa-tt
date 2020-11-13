@@ -1,9 +1,9 @@
 <template>
   <table class="contacts__table table">
     <thead class="table__head">
-      <th>Name</th>
-      <th>Username</th>
-      <th>Email</th>
+      <th @click="sortBy('name')">Name</th>
+      <th @click="sortBy('username')">Username</th>
+      <th @click="sortBy('email')">Email</th>
       <th></th>
     </thead>
 
@@ -20,18 +20,8 @@
         <td>{{ contact.username }}</td>
         <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
         <td>
-          <router-link
-            class="table__details"
-            :to="{name: 'contact', params: {id: contact.id}}"
-          >
-            Details
-          </router-link>
-          <button
-            class="table__delete-button"
-            type="button"
-          >
-            Delete
-          </button>
+          <router-link :to="{ name: 'contact', params: {id: contact.id} }">Details</router-link>
+          <button type="button" @click="deleteContact(contact.id)">X</button>
           </td>
       </tr>
     </tbody>
@@ -39,10 +29,24 @@
 </template>
 
 <script>
+
 export default {
   name: 'ContactsTable',
   props: {
     contacts: Array,
+  },
+  // computed: {
+  //   partialContacts() {
+
+  //   },
+  // }, // create computed propertie that has only name, username and email
+  methods: {
+    sortBy(factor) {
+      this.$emit('sort-contacts', factor);
+    },
+    deleteContact(contactId) {
+      this.$emit('delete-contact', contactId);
+    },
   },
 };
 </script>
@@ -63,11 +67,6 @@ export default {
       &:hover {
         background-color: #DFE0E1;
       }
-
-      &:last-child {
-        background-color: #F8F9FA;
-        cursor: default;
-      }
     }
   }
 
@@ -80,30 +79,6 @@ export default {
 
     td {
       padding: 15px 10px;
-    }
-  }
-
-  &__details {
-    margin-right: 20px;
-    padding: 10px 20px;
-
-    color: white;
-    background-color: #1F7CD8;
-    font-size: 15px;
-  }
-
-  &__delete-button {
-    padding: 10px 20px;
-
-    border: none;
-    color: white;
-    background-color: #F44336;
-    font-size: 15px;
-    outline:none;
-    cursor: pointer;
-
-    &:focus {
-      transform: scale(1.05);
     }
   }
 }

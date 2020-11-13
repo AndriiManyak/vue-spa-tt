@@ -3,6 +3,8 @@
     <new-contact-form></new-contact-form>
     <contacts-table
       :contacts="contacts"
+      @sort-contacts="sortContactsBy"
+      @delete-contact="deleteContact"
     >
     </contacts-table>
   </div>
@@ -23,6 +25,28 @@ export default {
   components: {
     ContactsTable,
     NewContactForm,
+  },
+  methods: {
+    sortContactsBy(factor) {
+      this.contacts = this.contacts.sort((prevContact, curContact) => (
+        prevContact[factor].localeCompare(curContact[factor])
+      ));
+    },
+
+    addContact(newContact) {
+      this.contacts.push({
+        ...newContact,
+        id: this.contacts.length + 1,
+      });
+    },
+
+    deleteContact(contactId) {
+      const indexToRemove = this.contacts
+        .map((contact) => contact.id)
+        .indexOf(contactId);
+
+      this.contacts.splice(indexToRemove, 1);
+    },
   },
 };
 </script>
