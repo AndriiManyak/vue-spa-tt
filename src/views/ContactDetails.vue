@@ -1,5 +1,6 @@
 <template>
   <div class="contactcard">
+    ContactDetails
   </div>
 </template>
 
