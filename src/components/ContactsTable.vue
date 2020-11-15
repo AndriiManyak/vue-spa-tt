@@ -1,9 +1,9 @@
 <template>
   <table class="contacts__table table">
     <thead class="table__head">
-      <th @click="sortBy('name')">Name</th>
-      <th @click="sortBy('username')">Username</th>
-      <th @click="sortBy('email')">Email</th>
+      <th @click="sortContactsBy('name')">Name</th>
+      <th @click="sortContactsBy('username')">Username</th>
+      <th @click="sortContactsBy('email')">Email</th>
       <th></th>
     </thead>
 
@@ -20,30 +20,46 @@
         <td>{{ contact.username }}</td>
         <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
         <td>
-          <router-link
-            class="table__details"
-            :to="{name: 'contact', params: {id: contact.id}}"
-          >
-            Details
-          </router-link>
+          <div>
+            <router-link
+              class="table__button table__button--safe"
+              :to="{name: 'contact', params: {id: contact.id}}"
+              tag="button"
+            >
+              Details
+            </router-link>
 
-          <button
-            @click="deleteContact(contact.id)"
-            class="table__delete-button"
-            type="button">
-            Delete
-          </button>
-          </td>
+            <button
+              @click="showMenu(contact.id)"
+              class="table__button table__button--danger"
+              type="button">
+              Delete
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
+    <delete-menu
+      v-if="contactIdToDelete"
+    >
+    </delete-menu>
   </table>
 </template>
 
 <script>
+import store from '@/store';
+import DeleteMenu from './DeleteMenu.vue';
+
 export default {
   name: 'ContactsTable',
-  props: {
-    contacts: Array,
+  data() {
+    return {
+      contacts: store.contacts,
+      contactIdToDelete: null,
+    };
+  },
+  components: {
+    DeleteMenu,
   },
   // computed: {
   //   partialContacts() {
@@ -51,17 +67,32 @@ export default {
   //   },
   // }, // create computed propertie that has only name, username and email
   methods: {
-    sortBy(factor) {
-      this.$emit('sort-contacts', factor);
+    showMenu(contactId) {
+      this.contactIdToDelete = contactId;
     },
+
+    hideMenu() {
+      this.contactIdToDelete = null;
+    },
+
+    sortContactsBy(factor) {
+      this.contacts = this.contacts.sort((prevContact, curContact) => (
+        prevContact[factor].localeCompare(curContact[factor])
+      ));
+    },
+
     deleteContact(contactId) {
-      this.$emit('delete-contact', contactId);
+      const indexToRemove = this.contacts
+        .map((contact) => contact.id)
+        .indexOf(contactId);
+
+      this.contacts.splice(indexToRemove, 1);
     },
   },
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .table {
   border-collapse: collapse;
   text-align: start;
@@ -97,41 +128,40 @@ export default {
     }
   }
 
-  &__details {
-    margin-right: 20px;
-    padding: 15px 25px;
+  &__button {
+    margin: 0 10px;
+    height: 50px;
+    width: 80px;
+    padding: 15px 0;
 
     color: white;
-    background-color: #237ED7;
     font-size: 16px;
-
-    transition: color 0.5s, background-color 0.5s;
-
-    &:hover {
-      color: #237ED7;
-      background-color: white;
-    }
-  }
-
-  &__delete-button {
     border:none;
-
-    padding: 15px 25px;
-    color: white;
-    background-color: #F77066;
-    font-size: 16px;
     outline: none;
-    cursor: pointer;
 
     transition: color 0.5s, background-color 0.5s;
-
-    &:hover {
-      color: #F77066;
-      background-color: white;
-    }
+    cursor: pointer;
 
     &:focus {
       transform: scale(1.05);
+    }
+
+    &--safe {
+      background-color: #237ED7;
+
+      &:hover {
+        color: #237ED7;
+        background-color: white;
+      }
+    }
+
+    &--danger {
+      background-color: #F77066;
+
+      &:hover {
+        color: #F77066;
+        background-color: white;
+      }
     }
   }
 }

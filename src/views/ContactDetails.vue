@@ -1,7 +1,6 @@
 <template>
   <div class="contactcard">
-    <h1>{{ contactId }}</h1>
-    <p>{{ contact.name}}</p>
+    <h1>{{ contact.name}}</h1>
     <p>{{ contact.username}}</p>
     <p>{{ contact.email}}</p>
     <p>{{ contact.phone}}</p>
