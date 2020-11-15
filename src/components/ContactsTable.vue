@@ -2,7 +2,7 @@
   <table class="contacts__table table">
     <thead class="table__head">
       <th @click="sortContactsBy('name')">Name</th>
-      <th @click="sortContactsBy('username')">Username</th>
+      <th @click="sortContactsBy('website')">Website</th>
       <th @click="sortContactsBy('email')">Email</th>
       <th></th>
     </thead>
@@ -17,7 +17,7 @@
         class="table__contact"
       >
         <td>{{ contact.name }}</td>
-        <td>{{ contact.username }}</td>
+        <td><a :href="contact.website"> {{ contact.website }}</a></td>
         <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
         <td>
           <div>
@@ -50,19 +50,20 @@
 </template>
 
 <script>
-import store from '@/store';
 import DeleteMenu from './DeleteMenu.vue';
 
 export default {
   name: 'ContactsTable',
   data() {
     return {
-      contacts: store.contacts,
       contactIdToDelete: null,
     };
   },
   components: {
     DeleteMenu,
+  },
+  props: {
+    contacts: Array,
   },
   // computed: {
   //   partialContacts() {
