@@ -60,6 +60,12 @@ export default {
         email: '',
         website: '',
       };
+
+      this.hideForm();
+    },
+
+    hideForm() {
+      this.$emit('hide-contact-form');
     },
   },
 };

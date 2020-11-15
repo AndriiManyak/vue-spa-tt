@@ -1,7 +1,15 @@
 <template>
-  <div>
+  <div  class="contacts">
+    <button
+      type="button"
+      @click="showContactForm"
+    >
+      Add new contact
+    </button>
     <new-contact-form
+      v-if="isAdding"
       @add-contact="addContact"
+      @hide-contact-form="hideContactForm"
     >
     </new-contact-form>
     <contacts-table
@@ -20,6 +28,7 @@ export default {
   data() {
     return {
       contacts: store.contacts,
+      isAdding: false,
     };
   },
   components: {
@@ -33,20 +42,22 @@ export default {
         id: this.contacts.length + 1,
       });
     },
+
+    showContactForm() {
+      this.isAdding = true;
+    },
+
+    hideContactForm() {
+      this.isAdding = false;
+    },
   },
 };
 </script>
 
 <style scoped lang="scss">
 .contacts {
-  max-width: 1024px;
-  margin: auto;
-
- margin: 20px 0;
-
- &__table {
+  &__table {
     width: 100%;
-
   }
 }
 </style>
