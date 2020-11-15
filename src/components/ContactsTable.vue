@@ -41,6 +41,9 @@
     </tbody>
     <delete-menu
       v-if="contactIdToDelete"
+      :deleteId="contactIdToDelete"
+      @hide-menu="hideMenu"
+      @delete-contact="deleteContact"
     >
     </delete-menu>
   </table>
@@ -130,9 +133,7 @@ export default {
 
   &__button {
     margin: 0 10px;
-    height: 50px;
-    width: 80px;
-    padding: 15px 0;
+    padding: 15px 20px;
 
     color: white;
     font-size: 16px;

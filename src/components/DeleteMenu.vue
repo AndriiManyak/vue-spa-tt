@@ -2,7 +2,7 @@
 <!-- fix classnames acording to BEM -->
   <div class="delete-menu">
     <div class="delete-menu__wrapper">
-      <h3 class="delete-menu__header">Are you shure?</h3>
+      <h3 class="delete-menu__header">Are you sure?</h3>
       <button
         @click="hideMenu()"
         class="table__button table__button--safe"
@@ -12,7 +12,7 @@
       </button>
 
       <button
-        @click="deleteContact(contact.id)"
+        @click="deleteContact()"
         class="table__button table__button--danger"
         type="button"
       >
@@ -24,13 +24,26 @@
 
 <script>
 export default {
+  props: {
+    deleteId: Number,
+  },
 
+  methods: {
+    hideMenu() {
+      this.$emit('hide-menu');
+    },
+
+    deleteContact() {
+      this.$emit('delete-contact', this.deleteId);
+      this.hideMenu();
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .delete-menu {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     top:50%;
