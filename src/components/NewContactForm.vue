@@ -1,5 +1,17 @@
 <template>
   <div class="new-contact">
+    <div class="new-contact__wrapper">
+      <div class="new-contact__heading">
+        <h2>New contact</h2>
+        <button
+          type="button"
+          class="new-contact__close"
+          @click="hideForm"
+        >
+          &#10006;
+        </button>
+      </div>
+
       <form
         @submit.prevent="handleSubmit"
         class="new-contact__form form"
@@ -33,6 +45,7 @@
         </button>
       </form>
     </div>
+  </div>
 </template>
 
 <script>
@@ -40,7 +53,11 @@ export default {
   name: 'NewContactForm',
   data() {
     return {
-      formErrors: [],
+      formErrors: {
+        nameError: '',
+        emailError: '',
+        websiteError: '',
+      },
       formData: {
         name: '',
         email: '',
@@ -50,9 +67,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      if (!this.formData.name) {
-        this.formErrors.push('name is required');
-      }
+      this.validateForm();
 
       this.$emit('add-contact', this.formData);
       this.formData = {
@@ -67,6 +82,14 @@ export default {
     hideForm() {
       this.$emit('hide-contact-form');
     },
+
+    // validateForm() {
+    //   const { name, email, website } = this.formData;
+
+    //   if (!name) {
+    //     this.formErrors.push('name is required');
+    //   }
+    // },
   },
 };
 </script>
@@ -84,13 +107,36 @@ export default {
   align-items: center;
   background-color: rgba(216, 220, 225, 0.4);
 
-  &__form {
-    display: flex;
-    flex-direction: column;
-
+  &__wrapper {
     padding: 30px;
     background-color: white;
     box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  &__heading {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__close {
+    border: none;
+    padding: 0;
+
+    font-size: 20px;
+    background-color: white;
+    color: #F77066;
+    cursor: pointer;
+
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
   }
 
   &__input {

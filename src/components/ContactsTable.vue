@@ -67,9 +67,9 @@ export default {
   },
   // computed: {
   //   partialContacts() {
-
+  //     return
   //   },
-  // }, // create computed propertie that has only name, username and email
+  // },
   methods: {
     showMenu(contactId) {
       this.contactIdToDelete = contactId;
