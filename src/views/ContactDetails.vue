@@ -36,6 +36,7 @@
           <button
             class="contact__button button button--edit"
             type="button"
+            @click="editField(field)"
           >
             &#9998;
           </button>
@@ -57,7 +58,6 @@
           @click="cancelLastChange"
           :disabled="!this.contactStates.length"
         >
-        <!-- add style for disabled button -->
           &#8592; Revert
         </button>
 
@@ -97,10 +97,11 @@ export default {
     return {
       contact: {},
       contactStates: [],
-      isAddingNewField: false,
-      isDeleting: false,
       fieldToDelete: '',
       contactId: this.$route.params.id,
+      isAddingNewField: false,
+      isDeleting: false,
+      isEditing: false,
     };
   },
 
@@ -137,9 +138,6 @@ export default {
       const { name, value } = newField;
       this.$set(this.contact, name, value);
     },
-    cancelLastChange() {
-      this.contact = this.contactStates.pop();
-    },
 
     showDeleteMenu(field) {
       this.fieldToDelete = field;
@@ -153,6 +151,18 @@ export default {
     deleteField() {
       this.contactStates.push({ ...this.contact });
       this.$delete(this.contact, this.fieldToDelete);
+    },
+
+    showEditForm() {
+      this.isEditing = true;
+    },
+
+    editField(fieldToEdit) {
+      console.log(fieldToEdit);
+    },
+
+    cancelLastChange() {
+      this.contact = this.contactStates.pop();
     },
   },
 };

@@ -6,7 +6,7 @@
           <router-link
             to="/"
           >
-            <h2>All contacts</h2>
+            <h2 class="header__link">All contacts</h2>
           </router-link>
         </li>
         <li>
@@ -23,12 +23,17 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .header {
+  display: flex;
+  align-items: center;
   height: 60px;
   padding: 0 20px;
 
-  color: white;
   background-color: #143454;
+
+  &__link {
+    color: white;
+  }
 }
 </style>

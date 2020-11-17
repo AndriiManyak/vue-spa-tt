@@ -22,6 +22,7 @@
           name="name"
           placeholder="Name"
           v-model="formData.name"
+          @change="handleChange"
           :class="{'new-contact__input--error' :nameError}"
         />
         <span v-if="nameError" class="new-contact__error">Name is required</span>
@@ -55,7 +56,7 @@ export default {
   name: 'NewContactForm',
   data() {
     return {
-      nameError: '',
+      nameError: false,
       formData: {
         name: '',
         email: '',
@@ -64,6 +65,9 @@ export default {
     };
   },
   methods: {
+    handleChange() {
+      this.nameError = false;
+    },
     handleSubmit() {
       if (!this.validateForm()) {
         return;

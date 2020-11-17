@@ -46,6 +46,8 @@ export default {
 
   data() {
     return {
+      nameError: false,
+      valueError: false,
       formData: {
         name: '',
         value: '',
@@ -55,12 +57,33 @@ export default {
 
   methods: {
     handleSubmit() {
+      if (!this.validateForm()) {
+        return;
+      }
+
       this.$emit('add-new-field', this.formData);
       this.hideForm();
     },
 
     hideForm() {
       this.$emit('hide-field-form');
+    },
+
+    validateForm() {
+      const { name, value } = this.formData;
+      let validationResult = true;
+
+      if (!name) {
+        this.nameError = true;
+        validationResult = false;
+      }
+
+      if (!value) {
+        this.valueError = true;
+        validationResult = false;
+      }
+
+      return validationResult;
     },
   },
 };
