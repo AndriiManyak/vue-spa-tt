@@ -12,7 +12,8 @@
           {{ visualInformation.name }}
           <button
             class="contact__button button button--edit"
-            type="button">
+            type="button"
+          >
             Edit
           </button>
         </h2>
@@ -36,15 +37,15 @@
             class="contact__button button button--edit"
             type="button"
           >
-            Edit
+            &#9998;
           </button>
 
           <button
-            class="contact__button button button--edit"
+            class="contact__button button button--delete"
             type="button"
             @click="showDeleteMenu(field)"
           >
-            Delete
+            &#10006;
           </button>
         </div>
       </div>
@@ -172,7 +173,7 @@ export default {
   }
 
   &__main {
-    padding: 0 10px;
+    padding: 10px 0;
   }
 
   &__field {
@@ -192,6 +193,14 @@ export default {
 
     text-transform: uppercase;
   }
+
+  @media (max-width: 650px) {
+    padding: 5px 10px;
+
+    &__wrapper {
+      flex-direction: column;
+    }
+  }
 }
 
 .button {
@@ -200,7 +209,8 @@ export default {
 
   cursor: pointer;
 
-  &--edit {
+  &--edit,
+  &--delete {
     visibility: hidden;
     padding: 0 5px;
     color: #59A8F4;
@@ -209,6 +219,10 @@ export default {
     &:hover {
     text-decoration: underline;
     }
+  }
+
+  &--delete {
+    color: #F77066;
   }
 
   &--new-field,
@@ -234,6 +248,13 @@ export default {
       color: white;
       background-color: silver;
       cursor: default;
+    }
+  }
+
+  @media (max-width: 700px) {
+    &--edit,
+    &--delete {
+      visibility: visible;
     }
   }
 }
