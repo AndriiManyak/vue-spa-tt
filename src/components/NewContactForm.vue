@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.validateForm();
+      // this.validateForm();
 
       this.$emit('add-contact', this.formData);
       this.formData = {

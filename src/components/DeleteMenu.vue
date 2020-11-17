@@ -12,7 +12,7 @@
       </button>
 
       <button
-        @click="deleteContact()"
+        @click="deleteElement()"
         class="table__button table__button--danger"
         type="button"
       >
@@ -24,17 +24,13 @@
 
 <script>
 export default {
-  props: {
-    deleteId: Number,
-  },
-
   methods: {
     hideMenu() {
       this.$emit('hide-menu');
     },
 
-    deleteContact() {
-      this.$emit('delete-contact', this.deleteId);
+    deleteElement() {
+      this.$emit('delete-element');
       this.hideMenu();
     },
   },

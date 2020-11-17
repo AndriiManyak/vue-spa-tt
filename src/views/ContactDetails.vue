@@ -1,86 +1,157 @@
 <template>
   <div class="contact">
     <section class="contact__wrapper">
-      <img
+      <!-- <img
         src="@/images/user-icon.png"
         class="contact__user-icon"
-      />
+      /> -->
       <div class="contact__main">
         <h2
-          class="contact__field"
+          class="contact__name"
         >
-          {{ contact.name}}
+          {{ visualInformation.name }}
           <button
             class="contact__button button button--edit"
             type="button">
             Edit
           </button>
         </h2>
-        <p
+
+        <div
           class="contact__field"
+          v-for="field of Object.keys(visualInformation.information)"
+          :key="field"
         >
-          {{ contact.email}}
+          <h5
+            class="contact__field-name"
+          >
+            {{ field }}:
+          </h5>
+
+          <span>
+            {{ visualInformation.information[field] }}
+          </span>
+
           <button
             class="contact__button button button--edit"
-            type="button">
+            type="button"
+          >
             Edit
           </button>
-        </p>
-        <p
-          class="contact__field"
-        >
-          {{ contact.phone}}
+
           <button
             class="contact__button button button--edit"
-            type="button">
-            Edit
+            type="button"
+            @click="showDeleteMenu(field)"
+          >
+            Delete
           </button>
-        </p>
-        <p
-          class="contact__field"
+        </div>
+      </div>
+
+      <div>
+        <button
+          type="button"
+          class="contact__button button button--revert"
+          @click="cancelLastChange"
+          :disabled="!this.contactStates.length"
         >
-          {{ contact.website}}
-          <button
-            class="contact__button button button--edit"
-            type="button">
-            Edit
-          </button>
-        </p>
+        <!-- add style for disabled button -->
+          &#8592; Revert
+        </button>
+
+        <button
+          type="button"
+          class="contact__button button button--new-field"
+          @click="showNewFieldForm"
+        >
+          Add new information
+        </button>
       </div>
     </section>
 
-    <button
-      type="button"
-      class="contact__button button button--new-field"
-    >
-      Add new field
-    </button>
-    <new-field-form></new-field-form>
-    <section class="contact__additional">
-
-    </section>
     <router-link to="/">Back</router-link>
+    <new-field-form
+      v-if="isAddingNewField"
+      @add-new-field="addNewField"
+      @hide-field-form ="hideNewFieldForm"
+    >
+    </new-field-form>
+    <delete-menu
+      v-if="isDeleting"
+      @hide-menu="hideDeleteMenu"
+      @delete-element="deleteField"
+    >
+    </delete-menu>
   </div>
 </template>
 
 <script>
 import store from '@/store';
 import NewFieldForm from '../components/NewFieldForm.vue';
+import DeleteMenu from '../components/DeleteMenu.vue';
 
 export default {
   data() {
     return {
+      contact: {},
+      contactStates: [],
+      isAddingNewField: false,
+      isDeleting: false,
+      fieldToDelete: '',
       contactId: this.$route.params.id,
     };
   },
+
   components: {
     NewFieldForm,
+    DeleteMenu,
+  },
+
+  mounted() {
+    this.contact = store.contacts.find((contact) => (
+      contact.id === this.contactId
+    ));
   },
   computed: {
-    contact() {
-      return store.contacts.find((contact) => (
-        contact.id === this.contactId
-      ));
+    visualInformation() {
+      const { id, name, ...information } = this.contact;
+      return {
+        name,
+        information,
+      };
+    },
+  },
+  methods: {
+    showNewFieldForm() {
+      this.isAddingNewField = true;
+    },
+
+    hideNewFieldForm() {
+      this.isAddingNewField = false;
+    },
+
+    addNewField(newField) {
+      this.contactStates.push({ ...this.contact });
+      const { name, value } = newField;
+      this.$set(this.contact, name, value);
+    },
+    cancelLastChange() {
+      this.contact = this.contactStates.pop();
+    },
+
+    showDeleteMenu(field) {
+      this.fieldToDelete = field;
+      this.isDeleting = true;
+    },
+
+    hideDeleteMenu() {
+      this.isDeleting = false;
+    },
+
+    deleteField() {
+      this.contactStates.push({ ...this.contact });
+      this.$delete(this.contact, this.fieldToDelete);
     },
   },
 };
@@ -92,6 +163,7 @@ export default {
 
   &__wrapper {
     display: flex;
+    justify-content: space-between;
   }
 
   &__user-icon {
@@ -105,12 +177,20 @@ export default {
 
   &__field {
     margin: 5px 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid black;
 
     &:hover {
-      > button {
-        display: inline;
+      button {
+        visibility: visible;
       }
     }
+  }
+
+  &__field-name {
+    margin: 5px 0;
+
+    text-transform: uppercase;
   }
 }
 
@@ -121,7 +201,7 @@ export default {
   cursor: pointer;
 
   &--edit {
-    display: none;
+    visibility: hidden;
     padding: 0 5px;
     color: #59A8F4;
     background-color: white;
@@ -131,7 +211,8 @@ export default {
     }
   }
 
-  &--new-field {
+  &--new-field,
+  &--revert {
     padding: 15px 20px;
 
     background-color: #237ED7;
@@ -147,6 +228,12 @@ export default {
     &:hover {
       color: #237ED7;
       background-color: white;
+    }
+
+    &:disabled {
+      color: white;
+      background-color: silver;
+      cursor: default;
     }
   }
 }

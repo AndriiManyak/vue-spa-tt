@@ -26,14 +26,14 @@
               :to="{name: 'contact', params: {id: contact.id}}"
               tag="button"
             >
-              Details
+              &#128065;
             </router-link>
 
             <button
               @click="showMenu(contact.id)"
               class="table__button table__button--danger"
               type="button">
-              Delete
+              &#10006;
             </button>
           </div>
         </td>
@@ -43,7 +43,7 @@
       v-if="contactIdToDelete"
       :deleteId="contactIdToDelete"
       @hide-menu="hideMenu"
-      @delete-contact="deleteContact"
+      @delete-element="deleteContact"
     >
     </delete-menu>
   </table>
@@ -66,8 +66,19 @@ export default {
     contacts: Array,
   },
   // computed: {
-  //   partialContacts() {
-  //     return
+  //   visualInformation() {
+  //     const {
+  //       id,
+  //       name,
+  //       website,
+  //       email,
+  //     } = this.contacts;
+  //     return {
+  //       id,
+  //       name,
+  //       website,
+  //       email,
+  //     };
   //   },
   // },
   methods: {
@@ -85,10 +96,10 @@ export default {
       ));
     },
 
-    deleteContact(contactId) {
+    deleteContact() {
       const indexToRemove = this.contacts
         .map((contact) => contact.id)
-        .indexOf(contactId);
+        .indexOf(this.contactIdToDelete);
 
       this.contacts.splice(indexToRemove, 1);
     },
@@ -137,7 +148,7 @@ export default {
     padding: 15px 20px;
 
     color: white;
-    font-size: 16px;
+    font-size: 17px;
     border:none;
     outline: none;
 
