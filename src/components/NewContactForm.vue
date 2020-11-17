@@ -22,7 +22,9 @@
           name="name"
           placeholder="Name"
           v-model="formData.name"
+          :class="{'new-contact__input--error' :nameError}"
         />
+        <span v-if="nameError" class="new-contact__error">Name is required</span>
         <input
           class="new-contact__input"
           type="text"
@@ -53,11 +55,7 @@ export default {
   name: 'NewContactForm',
   data() {
     return {
-      formErrors: {
-        nameError: '',
-        emailError: '',
-        websiteError: '',
-      },
+      nameError: '',
       formData: {
         name: '',
         email: '',
@@ -67,7 +65,9 @@ export default {
   },
   methods: {
     handleSubmit() {
-      // this.validateForm();
+      if (!this.validateForm()) {
+        return;
+      }
 
       this.$emit('add-contact', this.formData);
       this.formData = {
@@ -83,13 +83,17 @@ export default {
       this.$emit('hide-contact-form');
     },
 
-    // validateForm() {
-    //   const { name, email, website } = this.formData;
+    validateForm() {
+      const { name } = this.formData;
 
-    //   if (!name) {
-    //     this.formErrors.push('name is required');
-    //   }
-    // },
+      if (!name) {
+        this.nameError = true;
+
+        return false;
+      }
+
+      return true;
+    },
   },
 };
 </script>
@@ -139,6 +143,11 @@ export default {
     flex-direction: column;
   }
 
+  &__error {
+    font-size: 14px;
+    color: #F77066;
+  }
+
   &__input {
     margin: 10px 0;
     padding: 10px 15px;
@@ -147,6 +156,10 @@ export default {
     border: none;
     outline: none;
     border-bottom: 1px solid #DFE0E1;
+
+    &--error {
+      border-color: #F77066;
+    }
 
     &:focus {
       padding-bottom: 9px;

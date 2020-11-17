@@ -142,5 +142,11 @@ export default {
       background-color: white;
     }
   }
+
+  @media (max-width: 420px) {
+    &__wrapper {
+      padding: 30px 10xp;
+    }
+  }
 }
 </style>

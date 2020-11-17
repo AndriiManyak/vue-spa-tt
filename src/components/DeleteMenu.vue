@@ -39,26 +39,32 @@ export default {
 
 <style scoped lang="scss">
 .delete-menu {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(216, 220, 225, 0.4);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(216, 220, 225, 0.4);
 
+  &__wrapper {
+    padding: 20px 80px;
+    background-color: rgba(216, 220, 225, 1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  &__header {
+    margin: 20px 0;
+  }
+
+  @media (max-width: 420px) {
     &__wrapper {
-      padding: 20px 80px;
-      background-color: rgba(216, 220, 225, 1);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    }
-
-    &__header {
-      margin: 20px 0;
+      padding: 20px 40px;
     }
   }
+}
 </style>

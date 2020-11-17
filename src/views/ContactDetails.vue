@@ -14,7 +14,7 @@
             class="contact__button button button--edit"
             type="button"
           >
-            Edit
+            &#9998;
           </button>
         </h2>
 
@@ -251,7 +251,7 @@ export default {
     }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 1023px) {
     &--edit,
     &--delete {
       visibility: visible;
