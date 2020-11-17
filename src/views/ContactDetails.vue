@@ -170,6 +170,8 @@ export default {
 
 <style scoped lang="scss">
 .contact {
+  max-width: 1240px;
+  margin: auto;
   padding: 10px 30px;
 
   &__wrapper {

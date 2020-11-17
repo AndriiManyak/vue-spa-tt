@@ -17,18 +17,24 @@
       >
         <input
           class="new-field__input"
+          :class="{'new-field__input--error':formErrors.name}"
           type="text"
           name="name"
           placeholder="Name"
           v-model="formData.name"
+          @change="handleChange($event)"
         />
+        <span v-if="formErrors.name" class="new-field__error">Name is required</span>
         <input
           class="new-field__input"
+          :class="{'new-field__input--error':formErrors.value}"
           type="text"
           name="value"
           placeholder="Value"
           v-model="formData.value"
+          @change="handleChange($event)"
         />
+        <span v-if="formErrors.value" class="new-field__error">Value is required</span>
         <button
           class="new-field__submit"
           type="submit"
@@ -46,8 +52,11 @@ export default {
 
   data() {
     return {
-      nameError: false,
-      valueError: false,
+      formErrors: {
+        name: false,
+        value: false,
+      },
+
       formData: {
         name: '',
         value: '',
@@ -56,6 +65,10 @@ export default {
   },
 
   methods: {
+    handleChange(event) {
+      this.formErrors[event.target.name] = false;
+    },
+
     handleSubmit() {
       if (!this.validateForm()) {
         return;
@@ -74,12 +87,12 @@ export default {
       let validationResult = true;
 
       if (!name) {
-        this.nameError = true;
+        this.formErrors.name = true;
         validationResult = false;
       }
 
       if (!value) {
-        this.valueError = true;
+        this.formErrors.value = true;
         validationResult = false;
       }
 
@@ -134,6 +147,11 @@ export default {
     flex-direction: column;
   }
 
+   &__error {
+    font-size: 14px;
+    color: #F77066;
+  }
+
   &__input {
     margin: 10px 0;
     padding: 10px 15px;
@@ -142,6 +160,10 @@ export default {
     border: none;
     outline: none;
     border-bottom: 1px solid #DFE0E1;
+
+    &--error {
+      border-color: #F77066;
+    }
 
     &:focus {
       padding-bottom: 9px;

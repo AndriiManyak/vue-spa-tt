@@ -37,19 +37,6 @@ export default {
     NewContactForm,
   },
 
-  // computed: {
-  //   parsedContacts() {
-  //     const { name, website, email } = this.contacts;
-
-  //     return {
-  //       name,
-  //       website,
-  //       email,
-  //       selected: false,
-  //     };
-  //   },
-  // },
-
   methods: {
     addContact(newContact) {
       this.contacts.push({
@@ -65,10 +52,6 @@ export default {
     hideContactForm() {
       this.isAdding = false;
     },
-
-    // selectContact() {
-    //   this.parsedContacts.selected = !this.parsedContacts.selected;
-    // },
   },
 };
 </script>
