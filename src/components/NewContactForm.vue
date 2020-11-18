@@ -22,17 +22,20 @@
           name="name"
           placeholder="Name"
           v-model="formData.name"
-          @change="handleChange"
-          :class="{'new-contact__input--error' :nameError}"
+          @change="handleChange($event)"
+          :class="{'new-contact__input--error' :formErrors.name}"
         />
-        <span v-if="nameError" class="new-contact__error">Name is required</span>
+        <span v-if="formErrors.name" class="new-contact__error">Name is required</span>
         <input
           class="new-contact__input"
           type="text"
           name="email"
           placeholder="Email"
           v-model="formData.email"
+          @change="handleChange($event)"
+          :class="{'new-contact__input--error' :formErrors.email}"
         />
+        <span v-if="formErrors.email" class="new-contact__error">Email is required</span>
         <input
           class="new-contact__input"
           type="text"
@@ -56,7 +59,10 @@ export default {
   name: 'NewContactForm',
   data() {
     return {
-      nameError: false,
+      formErrors: {
+        name: false,
+        email: false,
+      },
       formData: {
         name: '',
         email: '',
@@ -64,10 +70,12 @@ export default {
       },
     };
   },
+
   methods: {
-    handleChange() {
-      this.nameError = false;
+    handleChange(event) {
+      this.formErrors[event.target.name] = false;
     },
+
     handleSubmit() {
       if (!this.validateForm()) {
         return;
@@ -88,15 +96,22 @@ export default {
     },
 
     validateForm() {
-      const { name } = this.formData;
+      const { name, email } = this.formData;
+      let validationResult = true;
 
       if (!name) {
-        this.nameError = true;
+        this.formErrors.name = true;
 
-        return false;
+        validationResult = false;
       }
 
-      return true;
+      if (!email) {
+        this.formErrors.email = true;
+
+        validationResult = false;
+      }
+
+      return validationResult;
     },
   },
 };
