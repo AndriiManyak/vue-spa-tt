@@ -16,27 +16,27 @@
         class="new-field__form form"
       >
         <input
-          class="new-field__input"
-          :class="{'new-field__input--error':formErrors.name}"
+          class="form__input"
+          :class="{'form__input--error':formErrors.name}"
           type="text"
           name="name"
           placeholder="Name"
           v-model="formData.name"
           @change="handleChange($event)"
         />
-        <span v-if="formErrors.name" class="new-field__error">Name is required</span>
+        <span v-if="formErrors.name" class="form__error">Name is required</span>
         <input
-          class="new-field__input"
-          :class="{'new-field__input--error':formErrors.value}"
+          class="form__input"
+          :class="{'form__input--error':formErrors.value}"
           type="text"
           name="value"
           placeholder="Value"
           v-model="formData.value"
           @change="handleChange($event)"
         />
-        <span v-if="formErrors.value" class="new-field__error">Value is required</span>
+        <span v-if="formErrors.value" class="form__error">Value is required</span>
         <button
-          class="new-field__submit"
+          class="form__submit"
           type="submit"
         >
           Add new field
@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/form.scss';
+
 .new-field {
   position: fixed;
   height: 100%;
@@ -139,52 +141,6 @@ export default {
 
     &:hover {
       transform: scale(1.1);
-    }
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-  }
-
-   &__error {
-    font-size: 14px;
-    color: #F77066;
-  }
-
-  &__input {
-    margin: 10px 0;
-    padding: 10px 15px;
-
-    font-size: 20px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #DFE0E1;
-
-    &--error {
-      border-color: #F77066;
-    }
-
-    &:focus {
-      padding-bottom: 9px;
-      border-bottom: 2px solid #237ED7;
-    }
-  }
-
-  &__submit {
-    border: none;
-    padding: 15px;
-    outline: none;
-    font-size: 20px;
-    color: white;
-    background-color: #237ED7;
-
-    transition: color 0.5s, background-color 0.5s;
-    cursor: pointer;
-
-    &:hover {
-      color: #237ED7;
-      background-color: white;
     }
   }
 

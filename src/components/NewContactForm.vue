@@ -17,34 +17,34 @@
         class="new-contact__form form"
       >
         <input
-          class="new-contact__input"
+          class="form__input"
           type="text"
           name="name"
           placeholder="Name"
           v-model="formData.name"
           @change="handleChange($event)"
-          :class="{'new-contact__input--error' :formErrors.name}"
+          :class="{'form__input--error' :formErrors.name}"
         />
-        <span v-if="formErrors.name" class="new-contact__error">Name is required</span>
+        <span v-if="formErrors.name" class="form__error">Name is required</span>
         <input
-          class="new-contact__input"
+          class="form__input"
           type="text"
           name="email"
           placeholder="Email"
           v-model="formData.email"
           @change="handleChange($event)"
-          :class="{'new-contact__input--error' :formErrors.email}"
+          :class="{'form__input--error' :formErrors.email}"
         />
-        <span v-if="formErrors.email" class="new-contact__error">Email is required</span>
+        <span v-if="formErrors.email" class="form__error">Email is required</span>
         <input
-          class="new-contact__input"
+          class="form__input"
           type="text"
           name="website"
           placeholder="Website"
           v-model="formData.website"
         />
         <button
-          class="new-contact__submit"
+          class="form__submit"
           type="submit"
         >
           Add new contact
@@ -118,6 +118,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/form.scss';
+
 .new-contact {
   position: fixed;
   height: 100%;
@@ -154,52 +156,6 @@ export default {
 
     &:hover {
       transform: scale(1.1);
-    }
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__error {
-    font-size: 14px;
-    color: #F77066;
-  }
-
-  &__input {
-    margin: 10px 0;
-    padding: 10px 15px;
-
-    font-size: 20px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #DFE0E1;
-
-    &--error {
-      border-color: #F77066;
-    }
-
-    &:focus {
-      padding-bottom: 9px;
-      border-bottom: 2px solid #237ED7;
-    }
-  }
-
-  &__submit {
-    border: none;
-    padding: 15px;
-    outline: none;
-    font-size: 20px;
-    color: white;
-    background-color: #237ED7;
-
-    transition: color 0.5s, background-color 0.5s;
-    cursor: pointer;
-
-    &:hover {
-      color: #237ED7;
-      background-color: white;
     }
   }
 }

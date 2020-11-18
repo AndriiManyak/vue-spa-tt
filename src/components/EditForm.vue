@@ -1,11 +1,11 @@
 <template>
-  <div class="new-contact">
-    <div class="new-contact__wrapper">
-      <div class="new-contact__heading">
+  <div class="edit">
+    <div class="edit__wrapper">
+      <div class="edit__heading">
         <h2>Edit</h2>
         <button
           type="button"
-          class="new-contact__close"
+          class="edit__close"
           @click="hideForm"
         >
           &#10006;
@@ -14,20 +14,20 @@
 
       <form
         @submit.prevent="handleSubmit"
-        class="new-contact__form form"
+        class="edit__form form"
       >
         <input
-          class="new-contact__input"
+          class="form__input"
           type="text"
           name="name"
           placeholder="new value"
           v-model="value"
           @change="handleChange"
-          :class="{'new-contact__input--error' :valueError}"
+          :class="{'form__input--error' :valueError}"
         />
-        <span v-if="valueError" class="new-contact__error">Name is required</span>
+        <span v-if="valueError" class="form__error">Value is required</span>
         <button
-          class="new-contact__submit"
+          class="form__submit"
           type="submit"
         >
           Edit
@@ -79,7 +79,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.new-contact {
+@import '@/assets/form.scss';
+
+.edit {
   position: fixed;
   height: 100%;
   width: 100%;
@@ -115,52 +117,6 @@ export default {
 
     &:hover {
       transform: scale(1.1);
-    }
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__error {
-    font-size: 14px;
-    color: #F77066;
-  }
-
-  &__input {
-    margin: 10px 0;
-    padding: 10px 15px;
-
-    font-size: 20px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #DFE0E1;
-
-    &--error {
-      border-color: #F77066;
-    }
-
-    &:focus {
-      padding-bottom: 9px;
-      border-bottom: 2px solid #237ED7;
-    }
-  }
-
-  &__submit {
-    border: none;
-    padding: 15px;
-    outline: none;
-    font-size: 20px;
-    color: white;
-    background-color: #237ED7;
-
-    transition: color 0.5s, background-color 0.5s;
-    cursor: pointer;
-
-    &:hover {
-      color: #237ED7;
-      background-color: white;
     }
   }
 }

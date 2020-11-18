@@ -1,0 +1,45 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+   &__error {
+    font-size: 14px;
+    color: #F77066;
+  }
+
+  &__input {
+    margin: 10px 0;
+    padding: 10px 15px;
+
+    font-size: 20px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #DFE0E1;
+
+    &--error {
+      border-color: #F77066;
+    }
+
+    &:focus {
+      padding-bottom: 9px;
+      border-bottom: 2px solid #237ED7;
+    }
+  }
+
+  &__submit {
+    border: none;
+    padding: 15px;
+    outline: none;
+    font-size: 20px;
+    color: white;
+    background-color: #237ED7;
+
+    transition: color 0.5s, background-color 0.5s;
+    cursor: pointer;
+
+    &:hover {
+      color: #237ED7;
+      background-color: white;
+    }
+  }
+}
