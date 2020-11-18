@@ -1,10 +1,6 @@
 <template>
   <div class="contact">
     <section class="contact__wrapper">
-      <!-- <img
-        src="@/images/user-icon.png"
-        class="contact__user-icon"
-      /> -->
       <div class="contact__main">
         <h2
           class="contact__name"
@@ -88,7 +84,7 @@
 </template>
 
 <script>
-import store from '@/store';
+// import store from '@/store';
 import NewFieldForm from '../components/NewFieldForm.vue';
 import DeleteMenu from '../components/DeleteMenu.vue';
 
@@ -111,7 +107,8 @@ export default {
   },
 
   mounted() {
-    this.contact = store.contacts.find((contact) => (
+    const localContacts = JSON.parse(localStorage.getItem('localContacts'));
+    this.contact = localContacts.find((contact) => (
       contact.id === this.contactId
     ));
   },
@@ -162,7 +159,8 @@ export default {
     },
 
     cancelLastChange() {
-      this.contact = this.contactStates.pop();
+      const lastState = this.contactStates.pop();
+      this.contact = lastState;
     },
   },
 };
