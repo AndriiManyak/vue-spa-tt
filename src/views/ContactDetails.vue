@@ -3,12 +3,13 @@
     <section class="contact__wrapper">
       <div class="contact__main">
         <h2
-          class="contact__name"
+          class="contact__field"
         >
           {{ visualInformation.name }}
           <button
             class="contact__button button button--edit"
             type="button"
+            @click="showEditForm('name')"
           >
             &#9998;
           </button>
@@ -32,7 +33,7 @@
           <button
             class="contact__button button button--edit"
             type="button"
-            @click="editField(field)"
+            @click="showEditForm(field)"
           >
             &#9998;
           </button>
@@ -74,6 +75,15 @@
       @hide-field-form ="hideNewFieldForm"
     >
     </new-field-form>
+
+    <edit-form
+      v-if="isEditing"
+      @edit-field="editField"
+      @hide-edit-form="hideEditForm"
+    >
+
+    </edit-form>
+
     <delete-menu
       v-if="isDeleting"
       @hide-menu="hideDeleteMenu"
@@ -84,9 +94,10 @@
 </template>
 
 <script>
-// import store from '@/store';
+import store from '@/store';
 import NewFieldForm from '../components/NewFieldForm.vue';
 import DeleteMenu from '../components/DeleteMenu.vue';
+import EditForm from '../components/EditForm.vue';
 
 export default {
   data() {
@@ -94,21 +105,23 @@ export default {
       contact: {},
       contactStates: [],
       fieldToDelete: '',
+      fieldToEdit: '',
       contactId: this.$route.params.id,
       isAddingNewField: false,
       isDeleting: false,
       isEditing: false,
+      mainKey: 0,
     };
   },
 
   components: {
     NewFieldForm,
     DeleteMenu,
+    EditForm,
   },
 
   mounted() {
-    const localContacts = JSON.parse(localStorage.getItem('localContacts'));
-    this.contact = localContacts.find((contact) => (
+    this.contact = store.contacts.find((contact) => (
       contact.id === this.contactId
     ));
   },
@@ -150,17 +163,30 @@ export default {
       this.$delete(this.contact, this.fieldToDelete);
     },
 
-    showEditForm() {
+    showEditForm(field) {
       this.isEditing = true;
+      this.fieldToEdit = field;
     },
 
-    editField(fieldToEdit) {
-      console.log(fieldToEdit);
+    hideEditForm() {
+      this.isEditing = false;
+    },
+
+    editField(newValue) {
+      this.contactStates.push({ ...this.contact });
+      this.$set(this.contact, this.fieldToEdit, newValue);
     },
 
     cancelLastChange() {
       const lastState = this.contactStates.pop();
-      this.contact = lastState;
+
+      Object.keys(this.contact).forEach((key) => {
+        delete this.contact[key];
+      });
+
+      Object.keys(lastState).forEach((key) => {
+        this.$set(this.contact, key, lastState[key]);
+      });
     },
   },
 };

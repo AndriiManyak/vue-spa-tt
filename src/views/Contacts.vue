@@ -28,7 +28,7 @@ export default {
   name: 'Contacts',
   data() {
     return {
-      contacts: [],
+      contacts: store.contacts,
       isAdding: false,
     };
   },
@@ -52,11 +52,6 @@ export default {
     hideContactForm() {
       this.isAdding = false;
     },
-  },
-  created() {
-    localStorage.setItem('localContacts', JSON.stringify(store.contacts));
-    const localContacts = JSON.parse(localStorage.getItem('localContacts'));
-    this.contacts = localContacts;
   },
 };
 </script>
