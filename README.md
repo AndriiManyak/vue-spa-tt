@@ -1,27 +1,21 @@
-# vue-spa-tt
+# Project Title
 
-## Project setup
-```
-npm install
-```
+- See [DEMO](https://andriimanyak.github.io/vue-spa-tt/)
+Simple SPA application (Contact book)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Local deployment
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Dependencies
+* Node v12.16.3 and higher
+* NPM v6.14.4 and higher
+* ... (describe any prerequisites, libraries, OS version, etc., needed before installing program.)
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Installing
+* Fork and clone this repository
+* Run `npm install` in your terminal
+* Run `npm run serve`
 
-### Demo
-See [DEMO](https://andriimanyak.github.io/vue-spa-tt/)
+## Troubleshooting
+For any contributing or problem solving you could find me [here](https://t.me/AndriyManyak)
+
