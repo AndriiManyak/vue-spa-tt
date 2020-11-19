@@ -8,8 +8,8 @@ Simple SPA application (Contact book)
 ### Dependencies
 * Node v12.16.3 and higher
 * NPM v6.14.4 and higher
-* ... (describe any prerequisites, libraries, OS version, etc., needed before installing program.)
-
+* Vue: v2.6.11 and higher
+* vue-router: v3.2.0 and higher
 
 ### Installing
 * Fork and clone this repository
