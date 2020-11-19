@@ -25,7 +25,11 @@
           @change="handleChange($event)"
           :class="{'form__input--error' :formErrors.name}"
         />
-        <span v-if="formErrors.name" class="form__error">Name is required</span>
+
+        <span v-if="formErrors.name" class="form__error">
+          Name is required
+        </span>
+
         <input
           class="form__input"
           type="text"
@@ -35,7 +39,11 @@
           @change="handleChange($event)"
           :class="{'form__input--error' :formErrors.email}"
         />
-        <span v-if="formErrors.email" class="form__error">Email is required</span>
+
+        <span v-if="formErrors.email" class="form__error">
+          Email is required
+        </span>
+
         <input
           class="form__input"
           type="text"
@@ -43,6 +51,7 @@
           placeholder="Website"
           v-model="formData.website"
         />
+
         <button
           class="form__submit"
           type="submit"

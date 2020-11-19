@@ -11,14 +11,28 @@
       <tr v-if="contacts.length === 0">
         <td colspan="4">You don't have any contacts</td>
       </tr>
+
       <tr
         v-for="contact of contacts"
         :key="contact.id"
         class="table__contact"
       >
-        <td>{{ contact.name }}</td>
-        <td><a :href="contact.website"> {{ contact.website }}</a></td>
-        <td><a :href="`mailto:${contact.email}`">{{ contact.email }}</a></td>
+        <td>
+          {{ contact.name }}
+        </td>
+
+        <td>
+          <a :href="`https://${contact.website}`">
+            {{ contact.website }}
+          </a>
+        </td>
+
+        <td>
+          <a :href="`mailto:${contact.email}`">
+            {{ contact.email }}
+          </a>
+        </td>
+
         <td>
           <div>
             <router-link
@@ -39,6 +53,7 @@
         </td>
       </tr>
     </tbody>
+
     <delete-menu
       v-if="contactIdToDelete"
       :deleteId="contactIdToDelete"

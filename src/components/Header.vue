@@ -9,9 +9,6 @@
             <h2 class="header__link">All contacts</h2>
           </router-link>
         </li>
-        <li>
-
-        </li>
       </ul>
     </nav>
   </header>

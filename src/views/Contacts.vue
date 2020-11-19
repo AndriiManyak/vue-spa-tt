@@ -7,12 +7,14 @@
     >
       New contact +
     </button>
+
     <new-contact-form
       v-if="isAdding"
       @add-contact="addContact"
       @hide-contact-form="hideContactForm"
     >
     </new-contact-form>
+
     <contacts-table
       :contacts="contacts"
     ></contacts-table>
@@ -32,6 +34,7 @@ export default {
       isAdding: false,
     };
   },
+
   components: {
     ContactsTable,
     NewContactForm,

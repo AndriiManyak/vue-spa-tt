@@ -125,6 +125,7 @@ export default {
       contact.id === this.contactId
     ));
   },
+
   computed: {
     visualInformation() {
       const { id, name, ...information } = this.contact;
@@ -134,6 +135,7 @@ export default {
       };
     },
   },
+
   methods: {
     showNewFieldForm() {
       this.isAddingNewField = true;

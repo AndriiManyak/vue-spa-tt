@@ -25,7 +25,11 @@
           @change="handleChange"
           :class="{'form__input--error' :valueError}"
         />
-        <span v-if="valueError" class="form__error">Value is required</span>
+
+        <span v-if="valueError" class="form__error">
+          Value is required
+        </span>
+
         <button
           class="form__submit"
           type="submit"
